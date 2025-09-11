@@ -1,7 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Text } from 'react-native';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import DashboardScreen from '../screens/main/DashboardScreen';
 import BudgetScreen from '../screens/main/BudgetScreen';
@@ -70,32 +71,32 @@ const MainNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: string;
+          let iconText: string;
 
           switch (route.name) {
             case 'Dashboard':
-              iconName = 'dashboard';
+              iconText = '📊';
               break;
             case 'Presupuesto':
-              iconName = 'account-balance-wallet';
+              iconText = '💰';
               break;
             case 'Ahorros':
-              iconName = 'savings';
+              iconText = '🏦';
               break;
             case 'Educación':
-              iconName = 'school';
+              iconText = '📚';
               break;
             case 'Estadísticas':
-              iconName = 'bar-chart';
+              iconText = '📈';
               break;
             case 'Perfil':
-              iconName = 'person';
+              iconText = '👤';
               break;
             default:
-              iconName = 'help';
+              iconText = '❓';
           }
 
-          return <Icon name={iconName} size={size} color={color} />;
+          return <Text style={{ fontSize: size, color }}>{iconText}</Text>;
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textSecondary,

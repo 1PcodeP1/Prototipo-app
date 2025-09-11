@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Card, FAB, Chip } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
 interface Transaction {
@@ -119,21 +119,21 @@ const DashboardScreen = () => {
               <Text style={styles.summaryTitle}>Resumen del mes</Text>
               <View style={styles.summaryRow}>
                 <View style={styles.summaryItem}>
-                  <Icon name="trending-up" size={24} color={colors.success} />
+                  <Text style={{ fontSize: 24, color: colors.success }}>📈</Text>
                   <Text style={styles.summaryLabel}>Ingresos</Text>
                   <Text style={[styles.summaryAmount, { color: colors.success }]}>
                     {formatCurrency(financialData.monthlyIncome)}
                   </Text>
                 </View>
                 <View style={styles.summaryItem}>
-                  <Icon name="trending-down" size={24} color={colors.error} />
+                  <Text style={{ fontSize: 24, color: colors.error }}>📉</Text>
                   <Text style={styles.summaryLabel}>Gastos</Text>
                   <Text style={[styles.summaryAmount, { color: colors.error }]}>
                     {formatCurrency(financialData.monthlyExpenses)}
                   </Text>
                 </View>
                 <View style={styles.summaryItem}>
-                  <Icon name="savings" size={24} color={colors.info} />
+                  <Text style={{ fontSize: 24, color: colors.info }}>💰</Text>
                   <Text style={styles.summaryLabel}>Ahorros</Text>
                   <Text style={[styles.summaryAmount, { color: colors.info }]}>
                     {formatCurrency(financialData.savings)}
@@ -200,7 +200,7 @@ const DashboardScreen = () => {
           <Card style={styles.recommendationCard}>
             <Card.Content>
               <View style={styles.recommendationHeader}>
-                <Icon name="lightbulb" size={24} color={colors.warning} />
+                <Text style={{ fontSize: 24, color: colors.warning }}>💡</Text>
                 <Text style={styles.recommendationTitle}>Consejo del día</Text>
               </View>
               <Text style={styles.recommendationText}>
@@ -214,7 +214,7 @@ const DashboardScreen = () => {
 
       <FAB
         style={styles.fab}
-        icon="add"
+        label="+"
         onPress={() => {
           // Navegar a agregar transacción
         }}

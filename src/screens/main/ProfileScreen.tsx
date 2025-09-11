@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import { Card, Button, Switch, List } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useAuth } from '../../context/AuthContext';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
@@ -30,43 +30,43 @@ const ProfileScreen = () => {
     {
       id: '1',
       title: 'Configuración de cuenta',
-      icon: 'person',
+      icon: '👤',
       onPress: () => {},
     },
     {
       id: '2',
       title: 'Notificaciones',
-      icon: 'notifications',
+      icon: '🔔',
       onPress: () => {},
     },
     {
       id: '3',
       title: 'Privacidad y seguridad',
-      icon: 'security',
+      icon: '🔒',
       onPress: () => {},
     },
     {
       id: '4',
       title: 'Categorías personalizadas',
-      icon: 'category',
+      icon: '📂',
       onPress: () => {},
     },
     {
       id: '5',
       title: 'Exportar datos',
-      icon: 'file-download',
+      icon: '📥',
       onPress: () => {},
     },
     {
       id: '6',
       title: 'Ayuda y soporte',
-      icon: 'help',
+      icon: '❓',
       onPress: () => {},
     },
     {
       id: '7',
       title: 'Acerca de',
-      icon: 'info',
+      icon: 'ℹ️',
       onPress: () => {},
     },
   ];
@@ -80,7 +80,7 @@ const ProfileScreen = () => {
             <Card.Content>
               <View style={styles.profileHeader}>
                 <View style={styles.avatarContainer}>
-                  <Icon name="person" size={40} color={colors.surface} />
+                  <Text style={{ fontSize: 40, color: colors.surface }}>👤</Text>
                 </View>
                 <View style={styles.userInfo}>
                   <Text style={styles.userName}>{user?.name || 'Usuario'}</Text>
@@ -123,17 +123,14 @@ const ProfileScreen = () => {
               <List.Item
                 title={item.title}
                 left={(props) => (
-                  <List.Icon
-                    {...props}
-                    icon={() => <Icon name={item.icon} size={24} color={colors.primary} />}
-                  />
+                  <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 8 }}>
+                    <Text style={{ fontSize: 24 }}>{item.icon}</Text>
+                  </View>
                 )}
                 right={(props) => (
-                  <List.Icon
-                    {...props}
-                    icon="chevron-right"
-                    color={colors.textSecondary}
-                  />
+                  <View style={{ justifyContent: 'center', alignItems: 'center', marginRight: 8 }}>
+                    <Text style={{ fontSize: 16, color: colors.textSecondary }}>›</Text>
+                  </View>
                 )}
                 onPress={item.onPress}
                 style={styles.menuItem}
@@ -208,9 +205,8 @@ const ProfileScreen = () => {
             onPress={handleLogout}
             style={styles.logoutButton}
             textColor={colors.error}
-            icon="logout"
           >
-            Cerrar Sesión
+            🚪 Cerrar Sesión
           </Button>
         </View>
 

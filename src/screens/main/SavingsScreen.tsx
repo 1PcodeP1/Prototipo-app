@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Card, Button, ProgressBar, Chip, FAB } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
 interface SavingsGoal {
@@ -42,7 +42,7 @@ const SavingsScreen = () => {
       targetDate: '2024-06-01',
       category: 'Viajes',
       color: colors.info,
-      icon: 'flight',
+      icon: '✈️',
     },
     {
       id: '2',
@@ -52,7 +52,7 @@ const SavingsScreen = () => {
       targetDate: '2024-04-15',
       category: 'Tecnología',
       color: colors.warning,
-      icon: 'laptop',
+      icon: '💻',
     },
     {
       id: '3',
@@ -62,7 +62,7 @@ const SavingsScreen = () => {
       targetDate: '2024-12-31',
       category: 'Emergencia',
       color: colors.success,
-      icon: 'security',
+      icon: '🛡️',
     },
   ]);
 
@@ -178,7 +178,7 @@ const SavingsScreen = () => {
                   <View style={styles.goalHeader}>
                     <View style={styles.goalInfo}>
                       <View style={[styles.goalIcon, { backgroundColor: goal.color + '20' }]}>
-                        <Icon name={goal.icon} size={24} color={goal.color} />
+                        <Text style={{ fontSize: 24 }}>{goal.icon}</Text>
                       </View>
                       <View style={styles.goalDetails}>
                         <Text style={styles.goalTitle}>{goal.title}</Text>
@@ -211,7 +211,7 @@ const SavingsScreen = () => {
 
                   <View style={styles.goalFooter}>
                     <View style={styles.goalDate}>
-                      <Icon name="schedule" size={16} color={colors.textSecondary} />
+                      <Text style={{ fontSize: 16, color: colors.textSecondary, marginRight: 4 }}>⏰</Text>
                       <Text style={styles.goalDateText}>
                         {daysLeft > 0 ? `${daysLeft} días restantes` : 'Meta alcanzada'}
                       </Text>
@@ -241,7 +241,7 @@ const SavingsScreen = () => {
                     <Text style={styles.challengeDescription}>{challenge.description}</Text>
                   </View>
                   <View style={styles.challengeReward}>
-                    <Icon name="star" size={20} color={colors.warning} />
+                    <Text style={{ fontSize: 20, color: colors.warning }}>⭐</Text>
                     <Text style={styles.rewardText}>+{challenge.reward}</Text>
                   </View>
                 </View>
@@ -259,7 +259,7 @@ const SavingsScreen = () => {
 
                 {challenge.isCompleted && (
                   <View style={styles.completedBadge}>
-                    <Icon name="check-circle" size={20} color={colors.success} />
+                    <Text style={{ fontSize: 20, color: colors.success }}>✅</Text>
                     <Text style={styles.completedText}>¡Completado!</Text>
                   </View>
                 )}
@@ -276,17 +276,15 @@ const SavingsScreen = () => {
               mode="outlined"
               onPress={() => {}}
               style={styles.actionButton}
-              icon="add"
             >
-              Agregar Ahorro
+              ➕ Agregar Ahorro
             </Button>
             <Button
               mode="outlined"
               onPress={() => {}}
               style={styles.actionButton}
-              icon="flag"
             >
-              Nueva Meta
+              🏁 Nueva Meta
             </Button>
           </View>
         </View>
@@ -294,7 +292,7 @@ const SavingsScreen = () => {
 
       <FAB
         style={styles.fab}
-        icon="add"
+        label="+"
         onPress={() => {
           // Navegar a agregar ahorro
         }}

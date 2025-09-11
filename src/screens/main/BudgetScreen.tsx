@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Card, Button, Chip, FAB } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
 interface BudgetCategory {
@@ -27,7 +27,7 @@ const BudgetScreen = () => {
       budget: 500,
       spent: 320,
       color: colors.categories.food,
-      icon: 'restaurant',
+      icon: '🍽️',
     },
     {
       id: '2',
@@ -35,7 +35,7 @@ const BudgetScreen = () => {
       budget: 200,
       spent: 150,
       color: colors.categories.transport,
-      icon: 'directions-car',
+      icon: '🚗',
     },
     {
       id: '3',
@@ -43,7 +43,7 @@ const BudgetScreen = () => {
       budget: 300,
       spent: 180,
       color: colors.categories.entertainment,
-      icon: 'movie',
+      icon: '🎬',
     },
     {
       id: '4',
@@ -51,7 +51,7 @@ const BudgetScreen = () => {
       budget: 150,
       spent: 75,
       color: colors.categories.health,
-      icon: 'local-hospital',
+      icon: '🏥',
     },
     {
       id: '5',
@@ -59,7 +59,7 @@ const BudgetScreen = () => {
       budget: 200,
       spent: 200,
       color: colors.categories.education,
-      icon: 'school',
+      icon: '🏫',
     },
     {
       id: '6',
@@ -67,7 +67,7 @@ const BudgetScreen = () => {
       budget: 400,
       spent: 450,
       color: colors.categories.shopping,
-      icon: 'shopping-bag',
+      icon: '🛍️',
     },
   ]);
 
@@ -142,7 +142,7 @@ const BudgetScreen = () => {
                   <View style={styles.categoryHeader}>
                     <View style={styles.categoryInfo}>
                       <View style={[styles.categoryIcon, { backgroundColor: category.color + '20' }]}>
-                        <Icon name={category.icon} size={24} color={category.color} />
+                        <Text style={{ fontSize: 24 }}>{category.icon}</Text>
                       </View>
                       <View style={styles.categoryDetails}>
                         <Text style={styles.categoryName}>{category.name}</Text>
@@ -177,7 +177,7 @@ const BudgetScreen = () => {
 
                   {isOverBudget && (
                     <View style={styles.overBudgetWarning}>
-                      <Icon name="warning" size={16} color={colors.error} />
+                      <Text style={{ fontSize: 16, color: colors.error }}>⚠️</Text>
                       <Text style={styles.overBudgetText}>
                         Has excedido el presupuesto en {formatCurrency(category.spent - category.budget)}
                       </Text>
@@ -197,17 +197,15 @@ const BudgetScreen = () => {
               mode="outlined"
               onPress={() => {}}
               style={styles.actionButton}
-              icon="plus"
             >
-              Agregar Gasto
+              ➕ Agregar Gasto
             </Button>
             <Button
               mode="outlined"
               onPress={() => {}}
               style={styles.actionButton}
-              icon="edit"
             >
-              Editar Presupuesto
+              ✏️ Editar Presupuesto
             </Button>
           </View>
         </View>
@@ -215,7 +213,7 @@ const BudgetScreen = () => {
 
       <FAB
         style={styles.fab}
-        icon="add"
+        label="+"
         onPress={() => {
           // Navegar a agregar transacción
         }}

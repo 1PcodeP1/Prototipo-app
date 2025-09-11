@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Card, Button, Chip, ProgressBar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
 interface Lesson {
@@ -45,7 +45,7 @@ const EducationScreen = () => {
       isCompleted: true,
       progress: 100,
       color: colors.success,
-      icon: 'school',
+      icon: '🏫',
     },
     {
       id: '2',
@@ -57,7 +57,7 @@ const EducationScreen = () => {
       isCompleted: false,
       progress: 60,
       color: colors.info,
-      icon: 'account-balance-wallet',
+      icon: '💰',
     },
     {
       id: '3',
@@ -69,7 +69,7 @@ const EducationScreen = () => {
       isCompleted: false,
       progress: 0,
       color: colors.warning,
-      icon: 'trending-up',
+      icon: '📈',
     },
     {
       id: '4',
@@ -81,7 +81,7 @@ const EducationScreen = () => {
       isCompleted: false,
       progress: 0,
       color: colors.accent,
-      icon: 'elderly',
+      icon: '👴',
     },
   ]);
 
@@ -90,7 +90,7 @@ const EducationScreen = () => {
       id: '1',
       title: 'Primer paso',
       description: 'Completa tu primera lección',
-      icon: 'emoji-events',
+      icon: '🏆',
       isUnlocked: true,
       unlockedDate: '2024-01-10',
       color: colors.success,
@@ -99,7 +99,7 @@ const EducationScreen = () => {
       id: '2',
       title: 'Estudiante dedicado',
       description: 'Completa 5 lecciones',
-      icon: 'school',
+      icon: '🏫',
       isUnlocked: false,
       color: colors.info,
     },
@@ -107,7 +107,7 @@ const EducationScreen = () => {
       id: '3',
       title: 'Experto en presupuesto',
       description: 'Completa todas las lecciones de presupuesto',
-      icon: 'account-balance-wallet',
+      icon: '💰',
       isUnlocked: false,
       color: colors.warning,
     },
@@ -115,7 +115,7 @@ const EducationScreen = () => {
       id: '4',
       title: 'Maestro financiero',
       description: 'Completa todas las lecciones',
-      icon: 'star',
+      icon: '⭐',
       isUnlocked: false,
       color: colors.accent,
     },
@@ -178,7 +178,7 @@ const EducationScreen = () => {
                 <View style={styles.lessonHeader}>
                   <View style={styles.lessonInfo}>
                     <View style={[styles.lessonIcon, { backgroundColor: lesson.color + '20' }]}>
-                      <Icon name={lesson.icon} size={24} color={lesson.color} />
+                      <Text style={{ fontSize: 24 }}>{lesson.icon}</Text>
                     </View>
                     <View style={styles.lessonDetails}>
                       <Text style={styles.lessonTitle}>{lesson.title}</Text>
@@ -186,7 +186,7 @@ const EducationScreen = () => {
                     </View>
                   </View>
                   {lesson.isCompleted && (
-                    <Icon name="check-circle" size={24} color={colors.success} />
+                    <Text style={{ fontSize: 24, color: colors.success }}>✅</Text>
                   )}
                 </View>
 
@@ -257,11 +257,14 @@ const EducationScreen = () => {
                           : colors.border 
                       }
                     ]}>
-                      <Icon 
-                        name={achievement.icon} 
-                        size={24} 
-                        color={achievement.isUnlocked ? achievement.color : colors.textSecondary} 
-                      />
+                      <Text 
+                        style={{ 
+                          fontSize: 24, 
+                          opacity: achievement.isUnlocked ? 1 : 0.5 
+                        }}
+                      >
+                        {achievement.icon}
+                      </Text>
                     </View>
                     <View style={styles.achievementDetails}>
                       <Text style={[
@@ -284,7 +287,7 @@ const EducationScreen = () => {
                     </View>
                   </View>
                   {achievement.isUnlocked && (
-                    <Icon name="star" size={20} color={colors.warning} />
+                    <Text style={{ fontSize: 20, color: colors.warning }}>⭐</Text>
                   )}
                 </View>
               </Card.Content>
@@ -299,12 +302,12 @@ const EducationScreen = () => {
             <Card.Content>
               <View style={styles.statsRow}>
                 <View style={styles.statItem}>
-                  <Icon name="school" size={24} color={colors.primary} />
+                  <Text style={{ fontSize: 24, color: colors.primary }}>🏫</Text>
                   <Text style={styles.statValue}>{completedLessons}</Text>
                   <Text style={styles.statLabel}>Lecciones</Text>
                 </View>
                 <View style={styles.statItem}>
-                  <Icon name="schedule" size={24} color={colors.info} />
+                  <Text style={{ fontSize: 24, color: colors.info }}>⏰</Text>
                   <Text style={styles.statValue}>
                     {lessons.reduce((sum, lesson) => 
                       lesson.isCompleted ? sum + lesson.duration : sum, 0
@@ -313,7 +316,7 @@ const EducationScreen = () => {
                   <Text style={styles.statLabel}>Minutos</Text>
                 </View>
                 <View style={styles.statItem}>
-                  <Icon name="emoji-events" size={24} color={colors.warning} />
+                  <Text style={{ fontSize: 24, color: colors.warning }}>🏆</Text>
                   <Text style={styles.statValue}>
                     {achievements.filter(a => a.isUnlocked).length}
                   </Text>

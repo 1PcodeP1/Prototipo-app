@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Card, SegmentedButtons } from 'react-native-paper';
 import { LineChart, BarChart, PieChart } from 'react-native-chart-kit';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
 const screenWidth = Dimensions.get('window').width;
@@ -150,17 +150,17 @@ const StatisticsScreen = () => {
               <Text style={styles.summaryTitle}>Resumen Financiero</Text>
               <View style={styles.summaryStats}>
                 <View style={styles.statItem}>
-                  <Icon name="trending-up" size={24} color={colors.success} />
+                  <Text style={{ fontSize: 24, color: colors.success }}>📈</Text>
                   <Text style={styles.statValue}>{formatCurrency(3200)}</Text>
                   <Text style={styles.statLabel}>Ingresos</Text>
                 </View>
                 <View style={styles.statItem}>
-                  <Icon name="trending-down" size={24} color={colors.error} />
+                  <Text style={{ fontSize: 24, color: colors.error }}>📉</Text>
                   <Text style={styles.statValue}>{formatCurrency(1800)}</Text>
                   <Text style={styles.statLabel}>Gastos</Text>
                 </View>
                 <View style={styles.statItem}>
-                  <Icon name="savings" size={24} color={colors.info} />
+                  <Text style={{ fontSize: 24, color: colors.info }}>💰</Text>
                   <Text style={styles.statValue}>{formatCurrency(1400)}</Text>
                   <Text style={styles.statLabel}>Ahorros</Text>
                 </View>
@@ -240,7 +240,7 @@ const StatisticsScreen = () => {
           <Card style={styles.analysisCard}>
             <Card.Content>
               <View style={styles.analysisItem}>
-                <Icon name="trending-up" size={24} color={colors.success} />
+                <Text style={{ fontSize: 24, color: colors.success }}>📈</Text>
                 <View style={styles.analysisContent}>
                   <Text style={styles.analysisTitle}>Tendencia Positiva</Text>
                   <Text style={styles.analysisDescription}>
@@ -254,7 +254,7 @@ const StatisticsScreen = () => {
           <Card style={styles.analysisCard}>
             <Card.Content>
               <View style={styles.analysisItem}>
-                <Icon name="warning" size={24} color={colors.warning} />
+                <Text style={{ fontSize: 24, color: colors.warning }}>⚠️</Text>
                 <View style={styles.analysisContent}>
                   <Text style={styles.analysisTitle}>Atención Requerida</Text>
                   <Text style={styles.analysisDescription}>
@@ -268,7 +268,7 @@ const StatisticsScreen = () => {
           <Card style={styles.analysisCard}>
             <Card.Content>
               <View style={styles.analysisItem}>
-                <Icon name="lightbulb" size={24} color={colors.info} />
+                <Text style={{ fontSize: 24, color: colors.info }}>💡</Text>
                 <View style={styles.analysisContent}>
                   <Text style={styles.analysisTitle}>Recomendación</Text>
                   <Text style={styles.analysisDescription}>
