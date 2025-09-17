@@ -394,7 +394,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryChip: {
-    height: 28,
+    height: responsiveComponentSizes.buttonHeight * 0.7,
+    minWidth: scaleWidth(80),
+    justifyContent: 'center',
+    paddingHorizontal: responsiveSpacing.sm,
   },
   transactionDate: {
     ...typography.caption,

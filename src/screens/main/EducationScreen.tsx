@@ -96,6 +96,7 @@ const EducationScreen = () => {
                       mode="contained"
                       onPress={() => Alert.alert('Contenido', `Abrir: ${item.title}`)}
                       style={styles.actionButton}
+                      labelStyle={styles.buttonText}
                     >
                       {isCompleted ? 'Revisar' : 'Estudiar'}
                     </Button>
@@ -104,6 +105,7 @@ const EducationScreen = () => {
                         mode="outlined"
                         onPress={() => handleMarkAsCompleted(item.id)}
                         style={styles.actionButton}
+                        labelStyle={styles.buttonText}
                       >
                         Completar
                       </Button>
@@ -120,6 +122,7 @@ const EducationScreen = () => {
             mode="contained"
             onPress={() => navigation.goBack()}
             style={styles.navButton}
+            labelStyle={styles.buttonText}
           >
             🏠 Volver al Dashboard
           </Button>
@@ -292,6 +295,8 @@ const styles = StyleSheet.create({
       marginHorizontal: screenData.isTablet ? spacing.xs : 0,
       marginVertical: screenData.isTablet ? 0 : spacing.xs,
       minHeight: componentSizes.buttonHeight,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   }),
   navigationContainer: getResponsiveStyle({
@@ -312,9 +317,25 @@ const styles = StyleSheet.create({
     base: {
       backgroundColor: '#1976d2',
       minHeight: componentSizes.buttonHeight,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     tablet: {
       minHeight: componentSizes.buttonHeight * 1.2,
+    },
+  }),
+  buttonText: getResponsiveStyle({
+    base: {
+      fontSize: 12,
+      textAlign: 'center',
+      fontWeight: '500',
+      letterSpacing: 0.5,
+    },
+    small: {
+      fontSize: 11,
+    },
+    tablet: {
+      fontSize: 14,
     },
   }),
 });
