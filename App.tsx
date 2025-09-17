@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+    import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import MainNavigator from './src/navigation/MainNavigator';

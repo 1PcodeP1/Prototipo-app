@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Card, Button, ProgressBar, Chip, FAB } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import type { SavingsStackScreenProps } from '../../types/navigation';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
@@ -33,6 +35,7 @@ interface Challenge {
 }
 
 const SavingsScreen = () => {
+  const navigation = useNavigation<SavingsStackScreenProps<'SavingsMain'>['navigation']>();
   const [goals] = useState<SavingsGoal[]>([
     {
       id: '1',
@@ -287,6 +290,22 @@ const SavingsScreen = () => {
               🏁 Nueva Meta
             </Button>
           </View>
+          <View style={styles.navigationButtons}>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate('Dashboard')}
+              style={[styles.navButton, { backgroundColor: colors.primary }]}
+            >
+              🏠 Dashboard
+            </Button>
+            <Button
+              mode="outlined"
+              onPress={() => navigation.navigate('Presupuesto')}
+              style={styles.navButton}
+            >
+              💰 Presupuesto
+            </Button>
+          </View>
         </View>
       </ScrollView>
 
@@ -508,6 +527,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   actionButton: {
+    flex: 1,
+    marginHorizontal: spacing.xs,
+  },
+  navigationButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: spacing.md,
+  },
+  navButton: {
     flex: 1,
     marginHorizontal: spacing.xs,
   },

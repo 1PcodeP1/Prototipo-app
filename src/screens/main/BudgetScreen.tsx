@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Card, Button, Chip, FAB } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import type { BudgetStackScreenProps } from '../../types/navigation';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
@@ -20,6 +22,7 @@ interface BudgetCategory {
 }
 
 const BudgetScreen = () => {
+  const navigation = useNavigation<BudgetStackScreenProps<'BudgetMain'>['navigation']>();
   const [categories] = useState<BudgetCategory[]>([
     {
       id: '1',
@@ -208,6 +211,22 @@ const BudgetScreen = () => {
               ✏️ Editar Presupuesto
             </Button>
           </View>
+          <View style={styles.navigationButtons}>
+            <Button
+              mode="contained"
+              onPress={() => navigation.navigate('Dashboard')}
+              style={[styles.navButton, { backgroundColor: colors.primary }]}
+            >
+              🏠 Dashboard
+            </Button>
+            <Button
+              mode="outlined"
+              onPress={() => navigation.navigate('Estadísticas')}
+              style={styles.navButton}
+            >
+              📊 Estadísticas
+            </Button>
+          </View>
         </View>
       </ScrollView>
 
@@ -351,6 +370,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   actionButton: {
+    flex: 1,
+    marginHorizontal: spacing.xs,
+  },
+  navigationButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: spacing.md,
+  },
+  navButton: {
     flex: 1,
     marginHorizontal: spacing.xs,
   },

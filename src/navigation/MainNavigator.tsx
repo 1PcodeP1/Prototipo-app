@@ -4,6 +4,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Text } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import type { 
+  MainTabParamList, 
+  DashboardStackParamList,
+  BudgetStackParamList,
+  SavingsStackParamList,
+  EducationStackParamList,
+  StatisticsStackParamList
+} from '../types/navigation';
+
 import DashboardScreen from '../screens/main/DashboardScreen';
 import BudgetScreen from '../screens/main/BudgetScreen';
 import SavingsScreen from '../screens/main/SavingsScreen';
@@ -13,57 +22,63 @@ import ProfileScreen from '../screens/main/ProfileScreen';
 
 import { colors } from '../styles/theme';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator<MainTabParamList>();
+
+// Stack Navigators para cada tab
+const DashboardStackNav = createStackNavigator<DashboardStackParamList>();
+const BudgetStackNav = createStackNavigator<BudgetStackParamList>();
+const SavingsStackNav = createStackNavigator<SavingsStackParamList>();
+const EducationStackNav = createStackNavigator<EducationStackParamList>();
+const StatisticsStackNav = createStackNavigator<StatisticsStackParamList>();
 
 const DashboardStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen 
+  <DashboardStackNav.Navigator>
+    <DashboardStackNav.Screen 
       name="DashboardMain" 
       component={DashboardScreen}
       options={{ headerShown: false }}
     />
-  </Stack.Navigator>
+  </DashboardStackNav.Navigator>
 );
 
 const BudgetStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen 
+  <BudgetStackNav.Navigator>
+    <BudgetStackNav.Screen 
       name="BudgetMain" 
       component={BudgetScreen}
       options={{ headerShown: false }}
     />
-  </Stack.Navigator>
+  </BudgetStackNav.Navigator>
 );
 
 const SavingsStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen 
+  <SavingsStackNav.Navigator>
+    <SavingsStackNav.Screen 
       name="SavingsMain" 
       component={SavingsScreen}
       options={{ headerShown: false }}
     />
-  </Stack.Navigator>
+  </SavingsStackNav.Navigator>
 );
 
 const EducationStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen 
+  <EducationStackNav.Navigator>
+    <EducationStackNav.Screen 
       name="EducationMain" 
       component={EducationScreen}
       options={{ headerShown: false }}
     />
-  </Stack.Navigator>
+  </EducationStackNav.Navigator>
 );
 
 const StatisticsStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen 
+  <StatisticsStackNav.Navigator>
+    <StatisticsStackNav.Screen 
       name="StatisticsMain" 
       component={StatisticsScreen}
       options={{ headerShown: false }}
     />
-  </Stack.Navigator>
+  </StatisticsStackNav.Navigator>
 );
 
 const MainNavigator = () => {

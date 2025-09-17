@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { Card, FAB, Chip } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import type { DashboardStackScreenProps } from '../../types/navigation';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
@@ -30,6 +32,7 @@ interface FinancialData {
 }
 
 const DashboardScreen = () => {
+  const navigation = useNavigation<DashboardStackScreenProps<'DashboardMain'>['navigation']>();
   const [refreshing, setRefreshing] = useState(false);
   const [financialData, setFinancialData] = useState<FinancialData>({
     balance: 2500.00,
@@ -142,6 +145,52 @@ const DashboardScreen = () => {
               </View>
             </Card.Content>
           </Card>
+        </View>
+
+        {/* Accesos rápidos */}
+        <View style={styles.quickAccessContainer}>
+          <Text style={styles.sectionTitle}>Accesos rápidos</Text>
+          <View style={styles.quickAccessGrid}>
+            <TouchableOpacity 
+              style={styles.quickAccessButton}
+              onPress={() => navigation.navigate('Presupuesto')}
+            >
+              <View style={[styles.quickAccessIcon, { backgroundColor: colors.categories.shopping }]}>
+                <Text style={styles.quickAccessIconText}>💰</Text>
+              </View>
+              <Text style={styles.quickAccessText}>Presupuesto</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.quickAccessButton}
+              onPress={() => navigation.navigate('Ahorros')}
+            >
+              <View style={[styles.quickAccessIcon, { backgroundColor: colors.categories.transport }]}>
+                <Text style={styles.quickAccessIconText}>🏦</Text>
+              </View>
+              <Text style={styles.quickAccessText}>Ahorros</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.quickAccessButton}
+              onPress={() => navigation.navigate('Estadísticas')}
+            >
+              <View style={[styles.quickAccessIcon, { backgroundColor: colors.categories.health }]}>
+                <Text style={styles.quickAccessIconText}>📊</Text>
+              </View>
+              <Text style={styles.quickAccessText}>Estadísticas</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.quickAccessButton}
+              onPress={() => navigation.navigate('Educación')}
+            >
+              <View style={[styles.quickAccessIcon, { backgroundColor: colors.categories.education }]}>
+                <Text style={styles.quickAccessIconText}>📚</Text>
+              </View>
+              <Text style={styles.quickAccessText}>Educación</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Transacciones recientes */}
@@ -368,6 +417,48 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: colors.primary,
+  },
+  // Estilos para accesos rápidos
+  quickAccessContainer: {
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
+  },
+  quickAccessGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  quickAccessButton: {
+    width: '48%',
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.md,
+    padding: spacing.md,
+    marginBottom: spacing.sm,
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
+  quickAccessIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: spacing.sm,
+  },
+  quickAccessIconText: {
+    fontSize: 24,
+  },
+  quickAccessText: {
+    ...typography.body,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });
 
