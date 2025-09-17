@@ -1,90 +1,39 @@
 ﻿import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Card, Button, Chip, ProgressBar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import type { EducationStackScreenProps } from '../../types/navigation';
-import { useEducation } from '../../hooks/useEducation';
-import { colors, typography, spacing, borderRadius } from '../../styles/theme';
 
 const EducationScreen = () => {
-  const navigation = useNavigation<EducationStackScreenProps<'EducationMain'>['navigation']>();
-  const { 
-    content, 
-    loading, 
-    error, 
-    markAsCompleted, 
-    isContentCompleted, 
-    getCompletionRate,
-  } = useEducation();
+  const navigation = useNavigation();
+  const [completedItems, setCompletedItems] = useState<string[]>([]);
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const categories = [
-    { key: 'basics', label: 'Fundamentos', icon: '🎯' },
-    { key: 'budgeting', label: 'Presupuesto', icon: '📊' },
-    { key: 'savings', label: 'Ahorros', icon: '🏦' },
-    { key: 'investing', label: 'Inversiones', icon: '📈' },
-    { key: 'debt', label: 'Deudas', icon: '💳' },
-    { key: 'advanced', label: 'Avanzado', icon: '🎓' },
+  const mockContent = [
+    {
+      id: '1',
+      title: 'Fundamentos del Presupuesto Personal',
+      description: 'Aprende los conceptos básicos para crear y mantener un presupuesto personal efectivo.',
+      category: 'basics',
+      estimatedReadTime: 15,
+    },
+    {
+      id: '2', 
+      title: 'Estrategias de Ahorro',
+      description: 'Descubre técnicas para maximizar tus ahorros y alcanzar tus metas financieras.',
+      category: 'savings',
+      estimatedReadTime: 20,
+    },
   ];
 
-  const getDifficultyLabel = (difficulty: string) => {
-    switch (difficulty) {
-      case 'beginner': return 'Principiante';
-      case 'intermediate': return 'Intermedio';
-      case 'advanced': return 'Avanzado';
-      default: return difficulty;
-    }
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'beginner': return colors.success;
-      case 'intermediate': return colors.warning;
-      case 'advanced': return colors.error;
-      default: return colors.textSecondary;
-    }
-  };
-
-  const handleMarkAsCompleted = async (contentId: string) => {
-    try {
-      await markAsCompleted(contentId, 10);
+  const handleMarkAsCompleted = (contentId: string) => {
+    if (!completedItems.includes(contentId)) {
+      setCompletedItems(prev => [...prev, contentId]);
       Alert.alert('¡Completado!', 'Has completado este contenido educativo.');
-    } catch (error) {
-      Alert.alert('Error', 'No se pudo marcar como completado');
     }
   };
 
-  const completionRate = getCompletionRate();
-  const filteredContent = content.filter(item => {
-    return !selectedCategory || item.category === selectedCategory;
-  });
-
-  if (loading) {
-    return (
-      <View style={[styles.container, styles.centerContent]}>
-        <Text>Cargando contenido educativo...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={[styles.container, styles.centerContent]}>
-        <Text style={styles.errorText}>Error: {error}</Text>
-        <Button mode="contained" onPress={() => {}}>
-          Reintentar
-        </Button>
-      </View>
-    );
-  }
+  const getCompletionRate = () => {
+    return (completedItems.length / mockContent.length) * 100;
+  };
 
   return (
     <View style={styles.container}>
@@ -93,90 +42,43 @@ const EducationScreen = () => {
           <Card style={styles.progressCard}>
             <Card.Content>
               <Text style={styles.progressTitle}>Tu Progreso Educativo</Text>
-              <View style={styles.progressInfo}>
-                <Text style={styles.progressText}>
-                  {Math.round(completionRate)}% Completado
-                </Text>
-                <ProgressBar
-                  progress={completionRate / 100}
-                  color={colors.primary}
-                  style={styles.progressBar}
-                />
-              </View>
+              <Text style={styles.progressText}>
+                {Math.round(getCompletionRate())}% Completado
+              </Text>
+              <ProgressBar
+                progress={getCompletionRate() / 100}
+                color="#1976d2"
+                style={styles.progressBar}
+              />
             </Card.Content>
           </Card>
         </View>
 
-        <View style={styles.categoriesContainer}>
-          <Text style={styles.sectionTitle}>Categorías</Text>
-          <ScrollView 
-            horizontal 
-            showsHorizontalScrollIndicator={false}
-            style={styles.categoryScroll}
-          >
-            <Chip
-              mode={selectedCategory === null ? 'flat' : 'outlined'}
-              selected={selectedCategory === null}
-              onPress={() => setSelectedCategory(null)}
-              style={styles.categoryChip}
-            >
-              Todos
-            </Chip>
-            {categories.map((category) => (
-              <Chip
-                key={category.key}
-                mode={selectedCategory === category.key ? 'flat' : 'outlined'}
-                selected={selectedCategory === category.key}
-                onPress={() => setSelectedCategory(category.key)}
-                style={styles.categoryChip}
-              >
-                {category.icon} {category.label}
-              </Chip>
-            ))}
-          </ScrollView>
-        </View>
-
         <View style={styles.contentContainer}>
-          <Text style={styles.sectionTitle}>Contenido Educativo</Text>
-          {filteredContent.map((item) => {
-            const isCompleted = isContentCompleted(item.id);
-            const difficultyColor = getDifficultyColor(item.difficulty);
+          <Text style={styles.sectionTitle}>Contenido Disponible</Text>
+          {mockContent.map((item) => {
+            const isCompleted = completedItems.includes(item.id);
 
             return (
               <Card key={item.id} style={styles.contentCard}>
                 <Card.Content>
                   <View style={styles.contentHeader}>
-                    <View style={styles.contentTitleRow}>
-                      <Text style={styles.contentTitle}>{item.title}</Text>
-                      {isCompleted && (
-                        <Text style={styles.completedIcon}>✅</Text>
-                      )}
-                    </View>
-                    <Chip
-                      mode="outlined"
-                      style={[styles.difficultyChip, { borderColor: difficultyColor }]}
-                      textStyle={{ color: difficultyColor }}
-                    >
-                      {getDifficultyLabel(item.difficulty)}
-                    </Chip>
+                    <Text style={styles.contentTitle}>{item.title}</Text>
+                    {isCompleted && <Text style={styles.completedIcon}>✅</Text>}
                   </View>
-
+                  
                   <Text style={styles.contentDescription}>
                     {item.description}
                   </Text>
 
-                  <View style={styles.contentMeta}>
-                    <Text style={styles.metaText}>
-                      📚 {item.category} • ⏱️ {item.estimatedReadTime} min
-                    </Text>
-                  </View>
+                  <Text style={styles.metaText}>
+                    📚 {item.category} • ⏱️ {item.estimatedReadTime} min
+                  </Text>
 
                   <View style={styles.contentActions}>
                     <Button
                       mode="contained"
-                      onPress={() => {
-                        Alert.alert('Contenido', `Abrir: ${item.title}`);
-                      }}
+                      onPress={() => Alert.alert('Contenido', `Abrir: ${item.title}`)}
                       style={styles.actionButton}
                     >
                       {isCompleted ? 'Revisar' : 'Estudiar'}
@@ -198,23 +100,13 @@ const EducationScreen = () => {
         </View>
 
         <View style={styles.navigationContainer}>
-          <Text style={styles.sectionTitle}>Navegación</Text>
-          <View style={styles.navigationButtons}>
-            <Button
-              mode="contained"
-              onPress={() => navigation.navigate('Dashboard')}
-              style={[styles.navButton, { backgroundColor: colors.primary }]}
-            >
-              🏠 Dashboard
-            </Button>
-            <Button
-              mode="outlined"
-              onPress={() => navigation.navigate('Estadísticas')}
-              style={styles.navButton}
-            >
-              📊 Estadísticas
-            </Button>
-          </View>
+          <Button
+            mode="contained"
+            onPress={() => navigation.goBack()}
+            style={styles.navButton}
+          >
+            🏠 Volver al Dashboard
+          </Button>
         </View>
       </ScrollView>
     </View>
@@ -224,101 +116,73 @@ const EducationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
-  },
-  centerContent: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
   },
   scrollView: {
     flex: 1,
   },
-  errorText: {
-    color: colors.error,
-    marginBottom: spacing.md,
-  },
   headerContainer: {
-    padding: spacing.lg,
+    padding: 16,
   },
   progressCard: {
-    borderRadius: borderRadius.lg,
+    borderRadius: 12,
     elevation: 4,
   },
   progressTitle: {
-    ...typography.h3,
-    marginBottom: spacing.md,
-    color: colors.primary,
-  },
-  progressInfo: {
-    alignItems: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: '#1976d2',
   },
   progressText: {
-    ...typography.body,
-    marginBottom: spacing.sm,
+    fontSize: 14,
+    marginBottom: 8,
     fontWeight: '600',
+    textAlign: 'center',
   },
   progressBar: {
     width: '100%',
     height: 8,
-    borderRadius: borderRadius.sm,
-  },
-  categoriesContainer: {
-    paddingHorizontal: spacing.lg,
-    marginBottom: spacing.md,
+    borderRadius: 4,
   },
   sectionTitle: {
-    ...typography.h3,
-    color: colors.primary,
-    marginBottom: spacing.md,
-  },
-  categoryScroll: {
-    flexDirection: 'row',
-  },
-  categoryChip: {
-    marginRight: spacing.sm,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1976d2',
+    marginBottom: 12,
   },
   contentContainer: {
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.lg,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   contentCard: {
-    marginBottom: spacing.md,
-    borderRadius: borderRadius.md,
+    marginBottom: 12,
+    borderRadius: 8,
   },
   contentHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: spacing.sm,
-  },
-  contentTitleRow: {
-    flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
+    marginBottom: 8,
   },
   contentTitle: {
-    ...typography.h3,
+    fontSize: 16,
     fontWeight: '600',
     flex: 1,
   },
   completedIcon: {
     fontSize: 20,
-    marginLeft: spacing.sm,
-  },
-  difficultyChip: {
-    height: 28,
+    marginLeft: 8,
   },
   contentDescription: {
-    ...typography.body,
-    color: colors.textSecondary,
-    marginBottom: spacing.md,
-  },
-  contentMeta: {
-    marginBottom: spacing.md,
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 12,
   },
   metaText: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12,
+    color: '#999',
+    marginBottom: 12,
   },
   contentActions: {
     flexDirection: 'row',
@@ -326,19 +190,14 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     flex: 1,
-    marginHorizontal: spacing.xs,
+    marginHorizontal: 4,
   },
   navigationContainer: {
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.xl,
-  },
-  navigationButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    paddingHorizontal: 16,
+    paddingBottom: 24,
   },
   navButton: {
-    flex: 1,
-    marginHorizontal: spacing.xs,
+    backgroundColor: '#1976d2',
   },
 });
 
