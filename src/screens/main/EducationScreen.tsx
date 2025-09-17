@@ -2,6 +2,22 @@
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Card, Button, Chip, ProgressBar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { 
+  screenData, 
+  getSpacing, 
+  getFontSizes, 
+  getComponentSizes,
+  getGridColumns,
+  getResponsiveStyle,
+  scaleWidth,
+  scaleHeight 
+} from '../../utils/responsive';
+
+// Obtener valores responsive fuera del componente
+const spacing = getSpacing;
+const fontSizes = getFontSizes();
+const componentSizes = getComponentSizes();
+const gridColumns = getGridColumns();
 
 const EducationScreen = () => {
   const navigation = useNavigation();
@@ -114,91 +130,193 @@ const EducationScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
+  container: getResponsiveStyle({
+    base: {
+      flex: 1,
+      backgroundColor: '#f5f5f5',
+    },
+  }),
   scrollView: {
     flex: 1,
   },
-  headerContainer: {
-    padding: 16,
-  },
-  progressCard: {
-    borderRadius: 12,
-    elevation: 4,
-  },
-  progressTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 12,
-    color: '#1976d2',
-  },
-  progressText: {
-    fontSize: 14,
-    marginBottom: 8,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  progressBar: {
-    width: '100%',
-    height: 8,
-    borderRadius: 4,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1976d2',
-    marginBottom: 12,
-  },
-  contentContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  contentCard: {
-    marginBottom: 12,
-    borderRadius: 8,
-  },
-  contentHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  contentTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    flex: 1,
-  },
-  completedIcon: {
-    fontSize: 20,
-    marginLeft: 8,
-  },
-  contentDescription: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 12,
-  },
-  metaText: {
-    fontSize: 12,
-    color: '#999',
-    marginBottom: 12,
-  },
-  contentActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  actionButton: {
-    flex: 1,
-    marginHorizontal: 4,
-  },
-  navigationContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 24,
-  },
-  navButton: {
-    backgroundColor: '#1976d2',
-  },
+  headerContainer: getResponsiveStyle({
+    base: {
+      padding: spacing.lg,
+    },
+    small: {
+      padding: spacing.md,
+    },
+    tablet: {
+      padding: spacing.xl,
+      maxWidth: scaleWidth(600),
+      alignSelf: 'center',
+    },
+  }),
+  progressCard: getResponsiveStyle({
+    base: {
+      borderRadius: componentSizes.cardBorderRadius,
+      elevation: 4,
+    },
+    tablet: {
+      elevation: 6,
+    },
+  }),
+  progressTitle: getResponsiveStyle({
+    base: {
+      fontSize: fontSizes.title,
+      fontWeight: 'bold',
+      marginBottom: spacing.md,
+      color: '#1976d2',
+    },
+    tablet: {
+      fontSize: fontSizes.headline,
+      textAlign: 'center',
+    },
+  }),
+  progressText: getResponsiveStyle({
+    base: {
+      fontSize: fontSizes.body,
+      marginBottom: spacing.sm,
+      fontWeight: '600',
+      textAlign: 'center',
+    },
+    tablet: {
+      fontSize: fontSizes.subheading,
+    },
+  }),
+  progressBar: getResponsiveStyle({
+    base: {
+      width: '100%',
+      height: componentSizes.progressBarHeight,
+      borderRadius: componentSizes.cardBorderRadius / 2,
+    },
+  }),
+  sectionTitle: getResponsiveStyle({
+    base: {
+      fontSize: fontSizes.title,
+      fontWeight: 'bold',
+      color: '#1976d2',
+      marginBottom: spacing.md,
+    },
+    tablet: {
+      fontSize: fontSizes.headline,
+      textAlign: 'center',
+    },
+  }),
+  contentContainer: getResponsiveStyle({
+    base: {
+      paddingHorizontal: spacing.lg,
+      paddingBottom: spacing.lg,
+    },
+    small: {
+      paddingHorizontal: spacing.md,
+    },
+    tablet: {
+      paddingHorizontal: spacing.xl,
+      maxWidth: scaleWidth(800),
+      alignSelf: 'center',
+    },
+  }),
+  contentCard: getResponsiveStyle({
+    base: {
+      marginBottom: spacing.md,
+      borderRadius: componentSizes.cardBorderRadius,
+    },
+    tablet: {
+      marginBottom: spacing.lg,
+      elevation: 6,
+    },
+  }),
+  contentHeader: getResponsiveStyle({
+    base: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: spacing.sm,
+    },
+  }),
+  contentTitle: getResponsiveStyle({
+    base: {
+      fontSize: fontSizes.subheading,
+      fontWeight: '600',
+      flex: 1,
+    },
+    tablet: {
+      fontSize: fontSizes.title,
+    },
+  }),
+  completedIcon: getResponsiveStyle({
+    base: {
+      fontSize: fontSizes.title,
+      marginLeft: spacing.sm,
+    },
+    tablet: {
+      fontSize: fontSizes.headline,
+    },
+  }),
+  contentDescription: getResponsiveStyle({
+    base: {
+      fontSize: fontSizes.body,
+      color: '#666',
+      marginBottom: spacing.md,
+      lineHeight: fontSizes.body * 1.4,
+    },
+    tablet: {
+      fontSize: fontSizes.subheading,
+      lineHeight: fontSizes.subheading * 1.4,
+    },
+  }),
+  metaText: getResponsiveStyle({
+    base: {
+      fontSize: fontSizes.caption,
+      color: '#999',
+      marginBottom: spacing.md,
+    },
+    tablet: {
+      fontSize: fontSizes.body,
+    },
+  }),
+  contentActions: getResponsiveStyle({
+    base: {
+      flexDirection: screenData.isTablet ? 'row' : 'column',
+      justifyContent: screenData.isTablet ? 'space-around' : 'center',
+      gap: spacing.sm,
+    },
+    small: {
+      flexDirection: 'column',
+    },
+  }),
+  actionButton: getResponsiveStyle({
+    base: {
+      flex: screenData.isTablet ? 1 : 0,
+      marginHorizontal: screenData.isTablet ? spacing.xs : 0,
+      marginVertical: screenData.isTablet ? 0 : spacing.xs,
+      minHeight: componentSizes.buttonHeight,
+    },
+  }),
+  navigationContainer: getResponsiveStyle({
+    base: {
+      paddingHorizontal: spacing.lg,
+      paddingBottom: spacing.xl,
+    },
+    small: {
+      paddingHorizontal: spacing.md,
+    },
+    tablet: {
+      paddingHorizontal: spacing.xl,
+      maxWidth: scaleWidth(600),
+      alignSelf: 'center',
+    },
+  }),
+  navButton: getResponsiveStyle({
+    base: {
+      backgroundColor: '#1976d2',
+      minHeight: componentSizes.buttonHeight,
+    },
+    tablet: {
+      minHeight: componentSizes.buttonHeight * 1.2,
+    },
+  }),
 });
 
 export default EducationScreen;

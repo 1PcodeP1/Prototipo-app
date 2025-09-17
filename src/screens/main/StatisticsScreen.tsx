@@ -10,8 +10,21 @@ import { Card, SegmentedButtons } from 'react-native-paper';
 import { LineChart, BarChart, PieChart } from 'react-native-chart-kit';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
+import { 
+  screenData, 
+  getSpacing, 
+  getFontSizes, 
+  getComponentSizes,
+  getResponsiveStyle,
+  scaleWidth,
+  scaleHeight 
+} from '../../utils/responsive';
 
-const screenWidth = Dimensions.get('window').width;
+// Obtener valores responsive
+const responsiveSpacing = getSpacing;
+const responsiveFontSizes = getFontSizes();
+const responsiveComponentSizes = getComponentSizes();
+const screenWidth = screenData.width;
 
 interface ChartData {
   labels: string[];

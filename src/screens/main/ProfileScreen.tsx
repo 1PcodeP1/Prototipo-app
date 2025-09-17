@@ -11,6 +11,20 @@ import { Card, Button, Switch, List } from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useAuth } from '../../context/AuthContext';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
+import { 
+  screenData, 
+  getSpacing, 
+  getFontSizes, 
+  getComponentSizes,
+  getResponsiveStyle,
+  scaleWidth,
+  scaleHeight 
+} from '../../utils/responsive';
+
+// Obtener valores responsive
+const responsiveSpacing = getSpacing;
+const responsiveFontSizes = getFontSizes();
+const responsiveComponentSizes = getComponentSizes();
 
 const ProfileScreen = () => {
   const { user, logout } = useAuth();

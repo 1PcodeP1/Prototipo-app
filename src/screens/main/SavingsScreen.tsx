@@ -11,6 +11,20 @@ import { useNavigation } from '@react-navigation/native';
 import type { SavingsStackScreenProps } from '../../types/navigation';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
+import { 
+  screenData, 
+  getSpacing, 
+  getFontSizes, 
+  getComponentSizes,
+  getResponsiveStyle,
+  scaleWidth,
+  scaleHeight 
+} from '../../utils/responsive';
+
+// Obtener valores responsive
+const responsiveSpacing = getSpacing;
+const responsiveFontSizes = getFontSizes();
+const responsiveComponentSizes = getComponentSizes();
 
 interface SavingsGoal {
   id: string;
@@ -358,8 +372,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   overallProgress: {
-    height: 8,
-    borderRadius: borderRadius.sm,
+    height: responsiveComponentSizes.progressBarHeight * 1.5,
+    borderRadius: responsiveComponentSizes.cardBorderRadius,
+    backgroundColor: colors.border,
   },
   goalsContainer: {
     paddingHorizontal: spacing.lg,
@@ -416,7 +431,10 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   categoryChip: {
-    height: 28,
+    height: responsiveComponentSizes.buttonHeight * 0.7,
+    minWidth: scaleWidth(70),
+    justifyContent: 'center',
+    paddingHorizontal: responsiveSpacing.sm,
   },
   goalAmounts: {
     marginBottom: spacing.sm,
@@ -431,9 +449,10 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   goalProgress: {
-    height: 8,
-    borderRadius: borderRadius.sm,
-    marginBottom: spacing.sm,
+    height: responsiveComponentSizes.progressBarHeight * 1.2,
+    borderRadius: responsiveComponentSizes.cardBorderRadius,
+    marginBottom: responsiveSpacing.sm,
+    backgroundColor: colors.border,
   },
   goalFooter: {
     flexDirection: 'row',
@@ -497,9 +516,10 @@ const styles = StyleSheet.create({
   },
   challengeProgressBar: {
     flex: 1,
-    height: 6,
-    borderRadius: borderRadius.sm,
-    marginRight: spacing.sm,
+    height: responsiveComponentSizes.progressBarHeight,
+    borderRadius: responsiveComponentSizes.cardBorderRadius,
+    marginRight: responsiveSpacing.sm,
+    backgroundColor: colors.border,
   },
   challengeProgressText: {
     ...typography.caption,

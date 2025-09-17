@@ -13,6 +13,18 @@ import { useNavigation } from '@react-navigation/native';
 import type { DashboardStackScreenProps } from '../../types/navigation';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
+import { 
+  getSpacing, 
+  getFontSizes, 
+  getComponentSizes,
+  scaleWidth,
+  scaleHeight 
+} from '../../utils/responsive';
+
+// Obtener valores responsive
+const responsiveSpacing = getSpacing;
+const responsiveFontSizes = getFontSizes();
+const responsiveComponentSizes = getComponentSizes();
 
 interface Transaction {
   id: string;

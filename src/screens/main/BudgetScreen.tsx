@@ -11,6 +11,21 @@ import { useNavigation } from '@react-navigation/native';
 import type { BudgetStackScreenProps } from '../../types/navigation';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing, borderRadius } from '../../styles/theme';
+import { 
+  screenData, 
+  getSpacing, 
+  getFontSizes, 
+  getComponentSizes,
+  getGridColumns,
+  getResponsiveStyle,
+  scaleWidth,
+  scaleHeight 
+} from '../../utils/responsive';
+
+// Obtener valores responsive
+const responsiveSpacing = getSpacing;
+const responsiveFontSizes = getFontSizes();
+const responsiveComponentSizes = getComponentSizes();
 
 interface BudgetCategory {
   id: string;
@@ -250,10 +265,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   summaryContainer: {
-    padding: spacing.lg,
+    padding: responsiveSpacing.lg,
   },
   summaryCard: {
-    borderRadius: borderRadius.lg,
+    borderRadius: responsiveComponentSizes.cardBorderRadius,
     elevation: 4,
   },
   summaryTitle: {
@@ -332,20 +347,23 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   statusChip: {
-    height: 28,
+    height: responsiveComponentSizes.buttonHeight * 0.7,
+    minWidth: scaleWidth(80),
+    justifyContent: 'center',
+    paddingHorizontal: responsiveSpacing.sm,
   },
   progressContainer: {
-    marginTop: spacing.sm,
+    marginTop: responsiveSpacing.sm,
   },
   progressBar: {
-    height: 8,
+    height: responsiveComponentSizes.progressBarHeight * 1.2,
     backgroundColor: colors.border,
-    borderRadius: borderRadius.sm,
+    borderRadius: responsiveComponentSizes.cardBorderRadius,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    borderRadius: borderRadius.sm,
+    borderRadius: responsiveComponentSizes.cardBorderRadius,
   },
   overBudgetWarning: {
     flexDirection: 'row',
